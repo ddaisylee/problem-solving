@@ -1,13 +1,13 @@
-const array = require('fs').readFileSync('./input.txt').toString().split('\n');
+// 앞으로는 const fs = require('fs') 문과 fs.readFileSync()문을 한 번에 쓸 수 있습니다.
+const arr = require('fs').readFileSync('./input.txt').toString().split('\n').slice(1);
 
 const stack = [];
 const result = [];
 
-const len = array.shift();
-
-for (let i = 0; i < len; i++) {
-  switch (array[i]) {
+for (let i = 0; i < arr; i++) {
+  switch (arr[i]) {
     case 'pop':
+      // 단축 평가: 첫 번째 피연산자가 true
       result.push(stack.pop() || -1);
       break;
 
@@ -23,8 +23,9 @@ for (let i = 0; i < len; i++) {
       result.push(stack[stack.length - 1] || -1);
       break;
 
+    // 값이 숫자일 필요는 없습니다. 따라서 숫자로 변환하는 식이 없어도 됩니다.
     default:
-      stack.push(array[i].split(" ")[1]);
+      stack.push(arr[i].split(" ")[1]);
       break;
   }
 }
