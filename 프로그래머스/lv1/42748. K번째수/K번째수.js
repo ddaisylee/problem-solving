@@ -11,4 +11,14 @@ function solution(array, commands) {
         console.log(result);
     }
     return result;
+    
+}
+
+function sollution(array, commands){
+    const result = commands.map(command => {
+        const [i, j, k] = command;
+        const number = array.slice(i - 1, k).sort((a, b) => a - b).find((_, idx)=> idx === k - 1);
+        return number
+    })
+    return result
 }
