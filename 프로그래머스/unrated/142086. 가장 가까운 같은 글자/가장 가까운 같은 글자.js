@@ -1,3 +1,4 @@
+// // 나의 풀이
 // function solution(s) {
 //     const arr = [];
 //     const elements = s.split('');
@@ -14,13 +15,15 @@
 //     return arr;
 // }
 
-function solution(s) {
-  const obj = {};
-  const answer = [];
-  for (let i = 0; i < s.length; i++) {
-    if (obj[s[i]] != null) answer[i] = i - obj[s[i]];
-    else answer[i] = -1;
-    obj[s[i]] = i;
-  }
-  return answer;
+// 다른 풀이
+function solution(s){
+    const obj = {};
+    
+    const answer = [...s].map((el, i) => {
+        let result = obj[el] !== undefined ? i - obj[el] : -1
+        // 해당 문자의 최신 인덱스를 저장하기 위해 프로퍼티값을 할당해준다.
+        obj[el] = i;
+        return result
+    })
+    return answer;
 }
