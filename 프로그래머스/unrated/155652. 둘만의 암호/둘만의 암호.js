@@ -1,19 +1,13 @@
 function solution(s, skip, index) {
-    let answer = '';
-    s = s.split('');
-    for (let str of s) {
-        let charcode = str.charCodeAt();
-        let num = 0;
-        while (true) {
-            if (num >= index) break;
-            num++;
-            charcode++;
-            if (charcode > 122) {
-                charcode = 97;
-            }
-            if (skip.includes(String.fromCharCode(charcode))) num--;
-        }
-        answer += String.fromCharCode(charcode);
-    }
-    return answer;
+  const alphabets = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 
+                    'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 
+                    'u', 'v', 'w', 'x', 'y', 'z']
+  
+  const excludedSkip = alphabets.filter(alphabet => !skip.includes(alphabet));
+  
+  return s.split('')
+            .map(word => excludedSkip[(excludedSkip.indexOf(word) + index) % excludedSkip.length])
+            .join('');
 }
+
+// index만큼의 뒤의 알파벳이 z를 넘어갈 경우 다시 a로 돌아가야하기 때문에 나머지를 구합니다.
