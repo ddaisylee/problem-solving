@@ -26,45 +26,43 @@ class Queue {
   }
 }
 
-const queue = new Queue();
-
 const visited = Array.from({ length: n }, () =>
   Array.from({ length: m }, () => false)
 );
 
 let direction = [
-  [1, 0],
-  [-1, 0],
-  [0, 1],
-  [0, -1],
+  [1, 0], //좌
+  [-1, 0], //우
+  [0, 1], //상
+  [0, -1], //하
 ];
 
-let count = 0;
+let num = 0;
 const widthArray = [];
+const queue = new Queue();
 
 const BFS = (start) => {
   queue.enqueue(start);
   let width = 0;
 
   while (!queue.isEmpty()) {
-    let [y, x] = queue.dequeue();
-    if (visited[y][x]) continue;
-    visited[y][x] = true;
+    let [x, y] = queue.dequeue();
+    if (visited[x][y]) continue;
+    visited[x][y] = true;
     width++;
 
+    // 상, 하, 좌, 우를 체크하는 로직
     for (let i = 0; i < direction.length; i++) {
-      let [dy, dx] = [y + direction[i][0], x + direction[i][1]];
+      let [dx, dy] = [x + direction[i][0], y + direction[i][1]];
 
-      if (dy < 0 || dx < 0 || dy >= n || dx >= m) continue;
-      if (visited[dy][dx]) continue;
-      if (input[dy][dx] === 1) {
-        queue.enqueue([dy, dx]);
-      }
+      if (dx < 0 || dy < 0 || dx >= n || dy >= m) continue;
+      if (visited[dx][dy] || input[dx][dy] !== 1) continue;
+      queue.enqueue([dx, dy]);
     }
   }
 
   if (width) {
-    count++;
+    num++;
     widthArray.push(width);
   }
 };
@@ -76,5 +74,5 @@ for (let i = 0; i < n; i++) {
     }
   }
 }
-if (!count) return console.log(0 + "\n" + 0);
-console.log(count + "\n" + Math.max(...widthArray))
+if (!answer) return console.log(0 + "\n" + 0);
+console.log(num + "\n" + Math.max(...widthArray))
